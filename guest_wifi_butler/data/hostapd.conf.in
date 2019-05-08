@@ -1,0 +1,65 @@
+# interface and drivers
+interface=wlan0
+bridge=br0
+#driver=nl80211
+
+# wireless configuration
+ssid=$ssid
+channel=7
+
+# transmission mode
+hw_mode=g
+#supported_rates=10 20 55 110 60 90 120 180 240 360 480 540
+#enable draft-N mode
+#ieee80211n=1
+
+# hide ESSID
+ignore_broadcast_ssid=0
+
+# country settings
+country_code=DE
+ieee80211d=1
+
+# encryption
+wpa=2
+wpa_key_mgmt=WPA-PSK
+rsn_pairwise=CCMP
+
+# key renewal interval
+wpa_group_rekey=600
+wpa_ptk_rekey=600
+wpa_gmk_rekey=86400
+wpa_passphrase=$passphrase
+
+# authentication options 
+auth_algs=1
+
+# mac authentication
+macaddr_acl=0
+
+# wmm functionality
+wmm_enabled=0
+
+# transfer mode / bandwidth 40mhz
+#ht_capab=[HT40+][SHORT-GI-40][DSSS_CCK-40]
+
+# beacons
+beacon_int=100
+dtim_period=2
+
+# max. client count
+max_num_sta=20
+
+# packet size limitation
+rts_threshold=2347
+fragm_threshold=2346
+
+# hostapd log settings
+logger_syslog=-1
+logger_syslog_level=1
+logger_stdout=-1
+logger_stdout_level=1
+
+# temporary configuration files
+ctrl_interface=/var/run/hostapd
+ctrl_interface_group=0
