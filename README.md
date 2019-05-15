@@ -1,4 +1,4 @@
-# Guest WiFi Butler
+# Guest WiFi Butler [![Build Status](https://travis-ci.com/r0binary/guest-wifi-butler.svg?branch=master)](https://travis-ci.com/r0binary/guest-wifi-butler)
 
 This project turns a Raspberry Pi with WiFi adapter and attached touchscreen into a WiFi access
 point. It is based on an idea from the german IT magazine c't. Your guests can easily connect to the
