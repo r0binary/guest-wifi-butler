@@ -1,0 +1,118 @@
+#:kivy 1.10.0
+
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import ConfigHandler guest_wifi_butler.config.config_handler.ConfigHandler
+#:import ImageButton guest_wifi_butler.ui.ImageButton
+#:import script_location guest_wifi_butler.script_location
+#:import os os
+
+<Settings>:
+    name: 'settings'
+    brightness_display: brightness_display
+    brightness: brightness
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: '[b]Brightness[/b]'
+            markup: True
+            font_size: dp(30)
+            size_hint: (1, .15)
+        Slider:
+            id: brightness
+            min: 10
+            max: 255
+            value: root.read_current_brightness()
+            step: 1
+            orientation: 'vertical'
+            on_touch_up:
+                root.update_brightness()
+            on_touch_move:
+                root.update_brightness()
+        Label:
+            id: brightness_display
+            size_hint: (1, .2)
+            text: '1.0'
+        Button: 
+            size_hint: (1, .2)
+            size: self.texture_size
+            text: 'Save settings'
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.transition = NoTransition()
+                root.manager.current = 'wlan'
+
+<Gallery>:
+    name: 'gallery'
+    gallery_image: gallery_image
+    on_touch_down:
+        root.manager.transition.direction = 'left'
+        root.manager.transition = NoTransition()
+        root.manager.current = 'wlan'
+    Image:
+        id: gallery_image
+        allow_stretch: True
+     
+
+<WLAN>:
+    name: 'wlan'
+    config: ConfigHandler()
+    passphrase: ''
+    android_qrcode: android
+    ios_qrcode: ios
+    windows_qrcode: windows
+    gallery_timer: None
+    
+    FloatLayout:
+        size: (800, 480)
+        Label:
+            text: '[color=888888]SSID:[/color] %s\n\n[color=888888]Passphrase:[/color] %s' % (root.config.ssid, root.passphrase)
+            font_size: dp(30)
+            text_size: self.size
+            markup: True
+            pos: (root.width * .25, root.height - 140)
+        
+        BoxLayout:
+            orientation: 'horizontal'
+            pos: (0, 50)
+            Label:
+                text: 'Android'
+                font_size: dp(30)
+                color: (.53, .53, .53, 1)
+            Label:
+                text: 'iOS'
+                font_size: dp(30)
+                color: (.53, .53, .53, 1)
+            Label:
+                text: 'Windows'
+                font_size: dp(30)
+                color: (.53, .53, .53, 1)
+
+        BoxLayout:
+            orientation: 'horizontal'
+            pos: (0, (-root.height / 2) + 140)
+            Image:
+                id: android
+                source: os.path.join(root.config.temp_directory, 'android.png')
+                allow_stretch: True
+            Image:
+                id: ios
+                source: os.path.join(root.config.temp_directory, 'ios.png')
+                allow_stretch: True
+            Image:
+                id: windows
+                source: os.path.join(root.config.temp_directory, 'windows.png')
+                allow_stretch: True
+
+        ImageButton: 
+            pos: (root.width / 2 - 45, root.height - 70)
+            size_hint_y: None
+            height: 50
+            source: os.path.join(script_location, 'data', 'settings_icon.png')
+            keep_ratio: True
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.transition = NoTransition()
+                root.manager.current = 'settings'
+                root.gallery_timer.cancel()
+

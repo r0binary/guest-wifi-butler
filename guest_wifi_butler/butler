@@ -1,0 +1,4 @@
+#!/usr/bin/env python
+import guest_wifi_butler.__main__ as guest_wifi_butler
+
+guest_wifi_butler.main()

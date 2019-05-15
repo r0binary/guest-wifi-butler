@@ -1,0 +1,6 @@
+include requirements.txt
+include guest_wifi_butler/guest_wifi_config.ini
+include guest_wifi_butler/data/*
+include guest_wifi_butler/images/*
+include guest_wifi_butler/ui/*.kv
+
